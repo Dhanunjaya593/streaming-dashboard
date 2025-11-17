@@ -10,7 +10,13 @@ export async function fetchPopular() {
     const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}`;
     console.log(`🔍 Fetching popular movies: ${url}`);
 
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error(`❌ TMDB error: ${res.status} ${res.statusText}`);
@@ -29,7 +35,13 @@ export async function fetchMovieById(id: string) {
     const url = `${BASE_URL}/movie/${id}?api_key=${API_KEY}`;
     console.log(`🔍 Fetching: ${url}`);
 
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error(`❌ TMDB error: ${res.status} ${res.statusText}`);
@@ -48,7 +60,13 @@ export async function fetchTrending() {
     const url = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
     console.log(`🔥 Fetching trending movies: ${url}`);
 
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error(`❌ TMDB error: ${res.status} ${res.statusText}`);
@@ -67,7 +85,13 @@ export async function getGenres() {
     const url = `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`;
     console.log(`🎭 Fetching genres: ${url}`);
 
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error(`❌ TMDB error: ${res.status} ${res.statusText}`);

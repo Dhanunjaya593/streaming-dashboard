@@ -4,10 +4,29 @@ import { fetchMovieById } from '@/lib/tmdb';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-export default async function MovieDetail({ params }: { params: { id: string } }) {
-  const movie = await fetchMovieById(params.id);
+type Props = {
+  params: Promise<{ id: string }>; // ✅ Treat params as a Promise
+};
+
+export default async function MovieDetail({ params }: Props) {
+  const { id } = await params; // ✅ Await the params before accessing id
+  console.log('🧩 Movie ID from params:', id);
+
+  if (!id) {
+    console.error('❌ No movie ID provided');
+    notFound();
+  }
+
+  let movie;
+  try {
+    movie = await fetchMovieById(id);
+  } catch (error) {
+    console.error('❌ Error in fetchMovieById:', error);
+    notFound();
+  }
 
   if (!movie || movie.success === false || movie.status_code === 34) {
+    console.warn('⚠️ Movie not found or invalid response:', movie);
     notFound();
   }
 
