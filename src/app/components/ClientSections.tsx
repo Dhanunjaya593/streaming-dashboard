@@ -3,7 +3,7 @@
 
 import SearchSection from './SearchSection/SearchSection';
 import GenreSection from './GenreSection/GenreSection';
-import { Genre } from '@/types/genre';
+import { Genre } from '@/types/genres';
 
 export default function ClientSections({ genres }: { genres: Genre[] }) {
   return (
